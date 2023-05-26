@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.BoardMaria.mappers.Master">
+ 
+ 
+ <!-- 삭제할 파일 갯수 가져오기-->
+ <select id ="filedeleteCount" resultType="int">
+ 
+	select count(*) from tbl_file where checkfile='N'
+ </select>
+ 
+  <!-- 삭제할 파일 갯수 가져오기-->
+  <select id="filedeleteList" resultType="com.BoardMaria.dto.FileVO">
+  	select*from tbl_file where checkfile='N' order by fileseqno;
+  </select>
+  
+  <!-- 파일 정보 삭제 -->
+  <delete id="deleteFile" parameterType = "int">
+  delete from tbl_file where fileseqno = #{fileseqno}
+  
+  </delete>
+  
+  
+ </mapper>
+ 
+
+
+    <!--  
+    
+    아이디 중복 체크. 카운터가 0이면 아이디 사용가능, 1이면 기존 사용중인 아이디 
+    @Select ("select count(*) from tbl_user where userid = '${userid}'")
+    public int idCheck(@Param("userid")String userid);
+    
+    // 회원가입
+    @Insert("insert into tbl_user (userid,username,password,gender,hobby,job,description) values ('${user.userid}', '${user.username}', '${user.password}', '${user.gender}', '${user.hobby}', '${user.job}', '${user.description}')")
+    public void signup(@Param("user") UserVO user);
+    
+    //로그인
+        @Select ("select * from tbl_user where userid = '${user.userid}' and '${user.password}'")
+   @Select("select userid, username, password from tbl_user where userid = '${userid}'")
+    public UserVO login(@Param("userid") String userid);
+    @Select("select userid, username, password from tbl_user where userid='${userid}'")
+	public UserVO loginInfo(@Param("userid") String userid);
+	-->
